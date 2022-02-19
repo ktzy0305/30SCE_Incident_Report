@@ -1,8 +1,12 @@
 import telebot
 import json, os
 
-api_key_file = open(os.path.join(os.getcwd(), 'credentials', 'api_key.json'))
-api_key = json.load(api_key_file)["key"]
+if "API_KEY" in os.environ:
+    api_key = os.environ['API_KEY']
+else:
+    api_key_file = open(os.path.join(os.getcwd(), 'credentials', 'api_key.json'))
+    api_key = json.load(api_key_file)["key"]
+
 bot = telebot.TeleBot(api_key, parse_mode=None)
 
 incident_report = {
